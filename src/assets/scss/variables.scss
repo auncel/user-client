@@ -1,0 +1,7 @@
+$header-height: 60px;
+$box-shadow: 0 3px 8px rgba(0, 0, 0, .1);
+
+// stylelint-disable-next-line
+@mixin default-box-shadow {
+  box-shadow: $box-shadow;
+}
