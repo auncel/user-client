@@ -37,7 +37,7 @@ module.exports = {
     "no-restricted-syntax": 1,
     "no-fallthrough": 1,
     "no-plusplus": 0,
-    "@typescript-eslint/interface-name-prefix": [2, { "prefixWithI": "always" } ], // @@
+    "@typescript-eslint/interface-name-prefix": [2, { "prefixWithI": "always" } ],
     "no-irregular-whitespace": 1,
     "max-len": [1, { "code": 80 }],
     "no-empty": 1,
@@ -51,7 +51,8 @@ module.exports = {
     "no-cond-assign": 1,
     "no-await-in-loop": 1,
     "@typescript-eslint/no-var-requires": 1,
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "react/prop-types": 0
   },
   "settings": {
     "import/extensions": [
