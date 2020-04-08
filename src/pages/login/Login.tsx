@@ -21,64 +21,22 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
-import loginSidePng from '../../assets/images/login-side.png';
+import { BaseLayout } from '../../layouts/Base';
+import { Header } from '../../components/Header';
 
 const Login: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm();
-
   const onSubmit = (data: object): void => {
     console.log(data);
   };
 
   return (
-    <div className={styles.loginBg}>
-      <div className={styles.loginContainer}>
-        <div className={styles.loginBox}>
-          <div className={styles.loginLeft}>
-            <img src={loginSidePng} alt="alt-text" />
-          </div>
-          <div className={styles.loginRight}>
-            <form onSubmit={handleSubmit(onSubmit)} method="POST">
-              <h2>登录</h2>
-              <input
-                name="usernameOrEmail"
-                ref={register({
-                  required: { value: true, message: '用户名或邮箱必填' },
-                  pattern: { value: /\w+/, message: '格式不正确' },
-                })}
-              />
-              {errors.usernameOrEmail
-                && (
-                <span className={styles.inputError}>
-                  {errors.usernameOrEmail.message}
-                </span>
-                )}
-              <input
-                name="password"
-                ref={register({
-                  required: { value: true, message: '密码必填' },
-                  pattern: { value: /\w+/, message: '格式不正确' },
-                })}
-              />
-              {errors.password
-                && (
-                <span className={styles.inputError}>
-                  {errors.password.message}
-                </span>
-                )}
-              <input type="submit" value="提交" />
-              <div className={styles.loginFooter}>
-                <span>注册</span>
-                <span>登录</span>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <BaseLayout
+      header={<Header />}
+      footer={<div />}
+    >
+      Body
+    </BaseLayout>
   );
 };
 

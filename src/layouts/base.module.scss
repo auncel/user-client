@@ -1,0 +1,20 @@
+@import "../assets/scss/variables.scss";
+
+.acLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.acLayoutHeader {
+  height: $header-height;
+  // stylelint-disable-next-line
+  @include default-box-shadow;
+}
+
+.acLayoutBody {
+  min-height: 800px;
+}
+
+.acLayoutFooter {
+  height: 300px;
+}

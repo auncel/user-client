@@ -1,0 +1,42 @@
+@import '../../assets/scss/variables.scss';
+
+.acHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.acHeaderContainer {
+  display: flex;
+  width: 1000px;
+  height: $header-height;
+  align-items: center;
+}
+
+.acHeaderLeft,
+.acHeaderRight {
+  display: flex;
+}
+
+.acHeaderLeft {
+  width: 700px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 40px;
+    vertical-align: middle;
+
+    li {
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
+}
+
+.acHeaderRight {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 300px;
+}
