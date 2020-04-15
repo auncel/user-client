@@ -9,11 +9,26 @@
 import { lazy } from 'react';
 
 const Login = lazy(() => import('./login/Login'));
+const Register = lazy(() => import('./register/Register'));
+const Profile = lazy(() => import('./user/Profile'));
 
 export default [
   {
     title: '登录',
     path: '/login',
     components: Login,
+    layout: 'base',
+  },
+  {
+    title: '注册',
+    path: '/register',
+    components: Register,
+    layout: 'base',
+  },
+  {
+    title: '个人信息',
+    path: '/u/:username',
+    components: Profile,
+    layout: 'base',
   },
 ];
