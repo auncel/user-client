@@ -35,7 +35,9 @@ export const Header: React.FC = (props) => {
         </div>
         <div className={styles.acHeaderRight}>
           <Image src={bellImg} alt="最新消息" width={20} />
-          <Image src={userImg} alt="头像" width={30} />
+          <Link to="/u/yidafu">
+            <Image src={userImg} alt="头像" width={30} />
+          </Link>
         </div>
       </div>
     </nav>

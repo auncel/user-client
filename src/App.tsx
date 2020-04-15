@@ -14,6 +14,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import routers from './pages/routers';
 
 import './App.css';
+import { BaseLayout } from './layouts/Base';
 
 const App: React.FC = () => (
   <BrowserRouter>
@@ -23,7 +24,17 @@ const App: React.FC = () => (
           <Route
             key={router.path}
             path={router.path}
-            component={router.components}
+            render={(): JSX.Element => {
+              const Content = router.components;
+              switch (router.layout) {
+                default:
+                  return (
+                    <BaseLayout>
+                      <Content />
+                    </BaseLayout>
+                  );
+              }
+            }}
           />
         ))}
       </Switch>

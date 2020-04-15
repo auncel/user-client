@@ -13,25 +13,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './base.module.scss';
+import { Header } from '../components';
 
 export interface IBaseLayoutProps {
-  header: React.ReactNode;
-  footer: React.ReactNode;
   children: React.ReactChild;
 }
 
 export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
-  const { header, footer, children } = props;
+  const { children } = props;
   return (
     <div className={styles.acLayout}>
       <div className={styles.acLayoutHeader}>
-        {header}
+        <Header />
       </div>
       <div className={styles.acLayoutBody}>
-        {children}
+        <div>
+          {children}
+        </div>
       </div>
       <div className={styles.acLayoutFooter}>
-        {footer}
+        Footer
       </div>
     </div>
   );

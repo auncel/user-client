@@ -13,6 +13,12 @@
 
 .acLayoutBody {
   min-height: 800px;
+  background-color: #f9f9f9;
+
+  > div {
+    width: 1000px;
+    margin: auto;
+  }
 }
 
 .acLayoutFooter {
