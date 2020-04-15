@@ -1,34 +1,12 @@
 /* --------------------------------------------------------------------------*
  * Description:                                                              *
  *                                                                           *
- * File Created: Sunday, 15th December 2019 10:23 pm                         *
+ * File Created: Wednesday, 15th April 2020 4:38 pm                          *
  * Author: yidafu(dov-yih) (me@yidafu.dev)                                   *
  *                                                                           *
- * Last Modified: Sunday, 15th December 2019 10:24 pm                        *
+ * Last Modified: Wednesday, 15th April 2020 4:38 pm                         *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
+ * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-
-@import '../../assets/scss/variables.scss';
-
-.acLoginBox {
-  margin: 80px auto;
-  padding: 0 50px;
-  width: 400px;
-  height: 500px;
-  background-color: #fff;
-  border-radius: 5px;
-
-  // stylelint-disable
-  @include card-box-shadow;
-}
-
-.acLoginGroup {
-  margin-top: 30px;
-}
-
-.acLoginText {
-  font-size: 12px;
-  color: #546e7a;
-}
+export { Register } from './Register';

@@ -12,11 +12,11 @@
 
 @import '../../assets/scss/variables.scss';
 
-.acLoginBox {
-  margin: 80px auto;
+.acRegisterBox {
+  margin: 40px auto;
   padding: 0 50px;
   width: 400px;
-  height: 500px;
+  height: 550px;
   background-color: #fff;
   border-radius: 5px;
 
@@ -24,11 +24,11 @@
   @include card-box-shadow;
 }
 
-.acLoginGroup {
+.acRegisterGroup {
   margin-top: 30px;
 }
 
-.acLoginText {
+.acRegisterText {
   font-size: 12px;
   color: #546e7a;
 }
