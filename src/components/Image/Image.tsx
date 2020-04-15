@@ -20,8 +20,11 @@ export interface IImageProps {
 
 export const Image: React.FC<IImageProps> = (props) => {
   const { src, alt, width } = props;
+  if (width === undefined) {
+    return <img className={styles.acCompImage} src={src} alt={alt ?? 'src'} />;
+  }
   return (
-    <div style={{ width: width ?? 'auto' }}>
+    <div style={{ width }} className={styles.acCompImageBox}>
       <img className={styles.acCompImage} src={src} alt={alt ?? 'src'} />
     </div>
   );
