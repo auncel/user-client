@@ -1,0 +1,31 @@
+@import '../../../assets/scss/variables.scss';
+
+.acProfileCard {
+  border-radius: 10px;
+  width: 360px;
+  padding: 30px;
+  background-color: #fff;
+  // stylelint-disable
+  @include card-box-shadow;
+}
+
+.acProfileCardH3 {
+  margin: 0;
+  color: rgba(80, 80, 80, 1);
+	font-size: 26px;
+	text-align: left;
+	font-weight: bold;
+}
+
+.acProfileCardH4 {
+  margin: 0;
+  color: rgba(80, 80, 80, 1);
+	font-size: 18px;
+	text-align: left
+}
+
+.acProfileCardText {
+  color: rgba(80, 80, 80, 1);
+	font-size: 14px;
+	text-align: left;
+}
