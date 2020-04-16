@@ -11,6 +11,7 @@ import { lazy } from 'react';
 const Login = lazy(() => import('./login/Login'));
 const Register = lazy(() => import('./register/Register'));
 const Profile = lazy(() => import('./user/Profile'));
+const Setting = lazy(() => import('./setting/Setting'));
 
 export default [
   {
@@ -29,6 +30,12 @@ export default [
     title: '个人信息',
     path: '/u/:username',
     components: Profile,
+    layout: 'base',
+  },
+  {
+    title: '设置',
+    path: '/setting',
+    components: Setting,
     layout: 'base',
   },
 ];
