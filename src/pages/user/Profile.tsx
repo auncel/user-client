@@ -9,7 +9,7 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Row, Col } from 'antd';
 import dayjs from 'dayjs';
 import ProfileCard from './components/ProfileCard';
@@ -21,7 +21,8 @@ import ContestCard from './components/ContestCard';
 import SubmissionList from './components/SubmissionList';
 
 interface IProfileProps {
-  username: string;
+  username?: string;
+  children?: ReactNode;
 }
 
 const mockARData = [
@@ -38,17 +39,17 @@ const mockARData = [
 const mockContest = [
   {
     title: '竞赛标题',
-    startTime: dayjs().format('YYYY-MM-DD'),
+    startTime: '2020-04-16T07:56:03.296Z',
     score: 80,
   },
   {
     title: '竞赛标题',
-    startTime: dayjs().format('YYYY-MM-DD'),
+    startTime: '2020-04-16T07:56:03.296Z',
     score: 80,
   },
   {
     title: '竞赛标题',
-    startTime: dayjs().format('YYYY-MM-DD'),
+    startTime: '2020-04-16T07:56:03.296Z',
     score: 80,
   },
 ];
@@ -56,17 +57,17 @@ const mockContest = [
 const mockSubmision = [
   {
     title: '问题标题',
-    startTime: dayjs().format('YYYY-MM-DD'),
+    startTime: '2020-04-16T07:56:03.296Z',
     status: 0,
   },
   {
     title: '问题标题',
-    startTime: dayjs().format('YYYY-MM-DD'),
+    startTime: '2020-04-16T07:56:03.296Z',
     status: 4,
   },
   {
     title: '问题标题',
-    startTime: dayjs().format('YYYY-MM-DD'),
+    startTime: '2020-04-16T07:56:03.296Z',
     status: 0,
   },
 ];

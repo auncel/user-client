@@ -39,7 +39,7 @@ const SubmissionList = (props: ISubmissionListProps) => {
           >
             <div>
               <span className={styles.listItemHeader}>{item.title}</span>
-              <Time>{item.startTime}</Time>
+              <Time date={item.startTime} />
             </div>
           </List.Item>
         )}
