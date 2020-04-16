@@ -1,0 +1,32 @@
+@import '../../../assets/scss/variables.scss';
+
+.settingCard {
+  width: 300px;
+  margin: auto;
+}
+
+.settingList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: block;
+    padding: 5px 15px;
+
+    a {
+      color: #1296db;
+      font-size: 16px;
+    }
+
+    a:active {
+      color: #383838;
+      font-weight: bold;
+    }
+  }
+
+  li:not(:last-child) {
+    // stylelint-disable-next-line
+    @include bottom-line;
+  }
+}
