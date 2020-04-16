@@ -17,13 +17,18 @@ export interface ICardProps {
   title: string;
   children: React.ReactNode;
   className?: string;
+  plain?: boolean;
 }
 
 export const Card = (props: ICardProps) => {
-  const { title, children, className } = props;
+  const {
+    title, children, className, plain,
+  } = props;
+  const cardClass = classnames(styles.card, className, { [styles.cardPlain]: !!plain });
+  const titleClass = classnames(styles.cardTitle, { [styles.cardTitlePlain]: !!plain });
   return (
-    <div className={classnames(styles.acCompCard, className)}>
-      <h3 className={styles.acCompCardTitle}>{title}</h3>
+    <div className={cardClass}>
+      <h3 className={titleClass}>{title}</h3>
       <div>
         {children}
       </div>

@@ -1,6 +1,6 @@
 @import '../../assets/scss/variables.scss';
 
-.acCompCard {
+.card {
   border-radius: 10px;
   background-color: #fff;
 
@@ -8,7 +8,7 @@
   @include card-box-shadow;
 }
 
-.acCompCardTitle {
+.cardTitle {
   margin: 0;
   padding: 3px 10px;
   border-top-left-radius: 10px;
@@ -18,4 +18,15 @@
 	font-size: 18px;
   line-height: 30px;
 	font-weight: bold;
+}
+
+
+.cardPlain {
+  padding: 20px 30px;
+}
+
+.cardTitlePlain {
+  background-color: #fff;
+  font-size: 23px;
+  @include bottom-line;
 }
