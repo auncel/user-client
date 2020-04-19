@@ -1,0 +1,27 @@
+// stylelint-disable
+@mixin difficultyTag {
+  padding: 2px 5px;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.difficultyTagHard {
+  @include difficultyTag;
+
+  background-color: #e33c64;
+}
+
+.difficultyTagMedium {
+  @include difficultyTag;
+
+  background-color: #ffc300;
+}
+
+.difficultyTagEasy {
+  @include difficultyTag;
+
+  background-color: #43cf7c
+}
