@@ -1,0 +1,14 @@
+
+@import '../../assets/scss/variables.scss';
+
+.problemDetail {
+  margin-top: 30px;
+}
+
+.problemDetailEditors {
+  border-top: 1px solid #aaa;
+  display: flex;
+  // padding-top: 20px;
+  // stylelint-disable
+  // @include card-box-shadow;
+}
