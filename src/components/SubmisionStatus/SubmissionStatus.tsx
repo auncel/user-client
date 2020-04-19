@@ -11,28 +11,20 @@
  *-------------------------------------------------------------------------- */
 import React from 'react';
 import styles from './styles.module.scss';
+import { SubmissionStatus as SubmissionStatusEnum } from '../../enum';
 
-export enum SUBMISSION_STATUS {
-  ACCEPT,
-  PADDING,
-  PADDING_TIMEOUT,
-  JUDGING,
-  WRONG_ANWSER,
-  RENDER_ERROR,
-  SYNTAX_ERROR,
-}
 
 interface ISubmissionStatusProps {
-  status: SUBMISSION_STATUS;
+  status: SubmissionStatusEnum;
 }
 
 export const SubmissionStatus = (props: ISubmissionStatusProps) => {
   const { status } = props;
   switch (status) {
-    case SUBMISSION_STATUS.ACCEPT: {
+    case SubmissionStatusEnum.ACCEPT: {
       return <span className={styles.accept}>Accept</span>;
     }
-    case SUBMISSION_STATUS.WRONG_ANWSER:
+    case SubmissionStatusEnum.WRONG_ANWSER:
       return <span className={styles.wrongAnwser}>Wrong Anwser</span>;
     default:
       return <span>Error</span>;

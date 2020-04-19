@@ -28,7 +28,7 @@ export const Header: React.FC = (props) => {
           <Image width={120} src={horizontalLogo} alt="图标" />
           <ul>
             {haderConfig.map((config) => (
-              <li><Link to={config.url}>{config.title}</Link></li>
+              <li key={config.url}><Link to={config.url}>{config.title}</Link></li>
             ))}
             <li />
           </ul>
