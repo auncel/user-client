@@ -7,11 +7,21 @@
  * Copyright (c) 2019 None                                                   *
  *-------------------------------------------------------------------------- */
 import { lazy } from 'react';
+import { Login } from './login';
+import { Register } from './register';
+import { Profile } from './user';
+import { Setting } from './setting';
+import { ProblemDetail } from './problem-detail';
+import { Contest } from './contest';
+import { Problem } from './problem';
 
-const Login = lazy(() => import('./login/Login'));
-const Register = lazy(() => import('./register/Register'));
-const Profile = lazy(() => import('./user/Profile'));
-const Setting = lazy(() => import('./setting/Setting'));
+// const Login = lazy(() => import('./login/Login'));
+// const Register = lazy(() => import('./register/Register'));
+// const Profile = lazy(() => import('./user/Profile'));
+// const Setting = lazy(() => import('./setting/Setting'));
+// const Problem = lazy(() => import('./problem/Problem'));
+// const Contest = lazy(() => import('./contest/Contest'));
+// const ProblemDetail = lazy(() => import('./problem-detail/ProblemDetail'));
 
 export default [
   {
@@ -36,6 +46,24 @@ export default [
     title: '设置',
     path: '/setting',
     components: Setting,
+    layout: 'base',
+  },
+  {
+    title: '问题',
+    path: '/problems/:id',
+    components: ProblemDetail,
+    layout: 'paved',
+  },
+  {
+    title: '问题',
+    path: '/problems',
+    components: Problem,
+    layout: 'base',
+  },
+  {
+    title: '竞赛',
+    path: '/contests',
+    components: Contest,
     layout: 'base',
   },
 ];

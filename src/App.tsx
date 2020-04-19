@@ -15,6 +15,7 @@ import routers from './pages/routers';
 
 import './App.css';
 import { BaseLayout } from './layouts/Base';
+import { PavedLayout } from './layouts/Paved';
 
 const App: React.FC = () => (
   <BrowserRouter>
@@ -27,6 +28,13 @@ const App: React.FC = () => (
             render={(): JSX.Element => {
               const Content = router.components;
               switch (router.layout) {
+                case 'paved': {
+                  return (
+                    <PavedLayout>
+                      <Content />
+                    </PavedLayout>
+                  );
+                }
                 default:
                   return (
                     <BaseLayout>

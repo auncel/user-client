@@ -12,14 +12,15 @@
 import React from 'react';
 import { List } from 'antd';
 import { Card } from '../../../components/Card';
-import { SubmissionStatus, SUBMISSION_STATUS } from '../../../components/SubmisionStatus';
+import { SubmissionStatus } from '../../../components/SubmisionStatus';
 import styles from './submission-list.module.scss';
 import Time from '../../../components/Time';
+import { SubmissionStatus as SubmissionStatusEnum } from '../../../enum';
 
 export interface ISubmissionItem {
   title: string;
   startTime: string;
-  status: SUBMISSION_STATUS;
+  status: SubmissionStatusEnum;
 }
 
 interface ISubmissionListProps {

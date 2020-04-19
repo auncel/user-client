@@ -16,10 +16,10 @@ export default [
   },
   {
     title: 'Contest',
-    url: '/contest',
+    url: '/contests',
   },
-  {
-    title: 'Submission',
-    url: '/submission',
-  },
+  // {
+  //   title: 'Submission',
+  //   url: '/submission',
+  // },
 ];
