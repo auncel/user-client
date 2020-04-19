@@ -12,15 +12,7 @@
 }
 
 .acLayoutBody {
-  min-height: 800px;
+  // min-height: 800px;
+  height: calc(100vh - #{$header-height});
   background-color: #f9f9f9;
-
-  > div {
-    width: 1200px;
-    margin: auto;
-  }
-}
-
-.acLayoutFooter {
-  height: 300px;
 }
