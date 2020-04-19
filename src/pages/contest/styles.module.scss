@@ -1,0 +1,10 @@
+@import '../../assets/scss/variables.scss';
+
+.problemCard {
+  margin: auto;
+  margin-top: 30px;
+  background-color: #fff;
+  width: 1000px;
+  // stylelint-disable
+  @include card-box-shadow;
+}
