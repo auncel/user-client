@@ -13,17 +13,28 @@
 /* eslint-disable no-empty-function */
 
 import 'reflect-metadata';
-import { Injectable } from 'injection-js';
 import HttpRequest from './HttpRequest';
 import HostMap from './hostMap';
+import { IReponseResult } from './ResponseResult';
+import { Post } from './PostDecorator';
 
-export type IUserParams = Record<'usernameOrEmail' | 'password', string>;
+export interface IUserParams {
+  username?: string;
+  password?: string;
+  email?: string;
+}
 
-@Injectable()
-export default class LoginService extends HttpRequest {
-  baseURL = HostMap.UserCenter;
 
-  login<T>(data: IUserParams): Promise<T> {
-    return this.post<T>(data).then((resp) => resp.data);
+export default class UserApi extends HttpRequest {
+  baseURL = HostMap.Default;
+
+  @Post()
+  login<T>(data: IUserParams): Promise<IReponseResult<T>> {
+    return {} as Promise<IReponseResult<T>>;
+  }
+
+  @Post()
+  register<T>(data: IUserParams): Promise<IReponseResult<T>> {
+    return {} as Promise<IReponseResult<T>>;
   }
 }

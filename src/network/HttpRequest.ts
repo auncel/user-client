@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-class-members */
 /* --------------------------------------------------------------------------*
  * Description:                                                              *
  *                                                                           *
@@ -11,6 +12,7 @@
  *-------------------------------------------------------------------------- */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import HostMap from './hostMap';
+import { IReponseResult } from './ResponseResult';
 
 export default class HttpRequest {
   client = axios.create({
@@ -21,7 +23,7 @@ export default class HttpRequest {
 
   get name(): string {
     const cstrName = this.constructor.name;
-    const uriPrefix = cstrName.slice(0, -7).toLocaleLowerCase();
+    const uriPrefix = cstrName.slice(0, -3).toLocaleLowerCase();
     return uriPrefix;
   }
 
@@ -33,7 +35,29 @@ export default class HttpRequest {
     return this.client.get(this.url, config);
   }
 
-  post<T>(data: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.client.post(this.url, data, config);
+  public async post<T>(suffix: string, data?: any, config?: AxiosRequestConfig): Promise<IReponseResult<T>>;
+
+  public async post<T>(data?: any, config?: AxiosRequestConfig): Promise<IReponseResult<T>>;
+
+  public async post<T>(...args: any[]): Promise<IReponseResult<T>> {
+    let data: any;
+    let config: AxiosRequestConfig;
+    /* eslint-disable */
+    let url = this.url;
+    if (typeof args[0] === 'string') {
+      url += `/${args[0]}`;
+      
+      data = args[1];
+      config = args[2];
+    } else {
+      data = args[0];
+      config = args[1];
+    }
+
+    const resp = await this.client.post(url, data, config);
+    if (resp.data.success) {
+      return resp.data;
+    }
+    throw new Error(resp.data.msg);
   }
 }
