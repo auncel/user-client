@@ -12,15 +12,24 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, connect, ConnectedProps } from 'react-redux';
 import styles from './header.module.scss';
 import { Image } from '../Image';
 import haderConfig from '../../config/header';
 import horizontalLogo from '../../assets/images/horizontal-logo.png';
 import bellImg from '../../assets/images/bell.png';
 import userImg from '../../assets/images/user.png';
+import { RootState } from '../../store';
 
-export const Header: React.FC = (props) => {
-  console.log();
+const connector = connect((state: RootState) => ({
+  user: state.user,
+}));
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+const HeaderComp: React.FC<PropsFromRedux> = (props) => {
+  // const user = useSelector();
+  const { user } = props;
+
   return (
     <nav className={styles.acHeader}>
       <div className={styles.acHeaderContainer}>
@@ -34,12 +43,14 @@ export const Header: React.FC = (props) => {
           </ul>
         </div>
         <div className={styles.acHeaderRight}>
-          <Image src={bellImg} alt="最新消息" width={20} />
+          {/* <Image src={bellImg} alt="最新消息" width={20} /> */}
           <Link to="/u/yidafu">
-            <Image src={userImg} alt="头像" width={30} />
+            <Image src={user.avatar || userImg} alt="头像" width={30} />
           </Link>
         </div>
       </div>
     </nav>
   );
 };
+
+export const Header = connector(HeaderComp);

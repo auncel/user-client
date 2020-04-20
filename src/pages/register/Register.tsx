@@ -10,23 +10,45 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
-  Row, Form, Input, Button,
+  Row, Form, Input, Button, message,
 } from 'antd';
 import {
   KeyOutlined, MailOutlined, UserOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import md5 from 'md5';
 import styles from './styles.module.scss';
 import { Image } from '../../components';
 import logo from '../../assets/images/vertical-logo.png';
+import { iniUser } from '../../store/user/actions';
 import githubIcon from '../../assets/images/github.png';
+import UserApi, { IUserParams } from '../../network/UserApi';
+import { User } from '../../domain';
 
-export const Register: React.FC = () => {
-  const onSubmit = (data: object): void => {
-    console.log(data);
-  };
+const connector = connect(null, {
+  iniUserDispatch: iniUser,
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+export const RegisterComp: React.FC<PropsFromRedux & RouteComponentProps> = (props) => {
+  const { iniUserDispatch, history } = props;
+
+  const handleFinish = useCallback(async (valus) => {
+    valus.password = md5(`${valus.password}salt`);
+    try {
+      const respData = await new UserApi().register<User>(valus);
+      iniUserDispatch(respData.data);
+      history.push(`/u/${respData.data.username}`);
+    } catch (err) {
+      console.error(err);
+      message.error(err.message);
+    }
+  }, []);
 
   return (
     <div className={styles.acRegisterBox}>
@@ -34,7 +56,10 @@ export const Register: React.FC = () => {
         <Image src={logo} width={100} />
       </Row>
 
-      <Form className={styles.acRegisterGroup}>
+      <Form
+        className={styles.acRegisterGroup}
+        onFinish={handleFinish}
+      >
 
         <Form.Item
           name="username"
@@ -69,7 +94,7 @@ export const Register: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          name="password"
+          name="passwordCheck"
           rules={[{ required: true, message: '请输入密码' }]}
         >
           <Input
@@ -81,14 +106,14 @@ export const Register: React.FC = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" block>
-            登录
+            注册
           </Button>
         </Form.Item>
       </Form>
 
       <Row justify="end">
         {/* <Link to="/forget-password" className={styles.acRegisterText}>忘记秘密</Link> */}
-        <Link to="/register" className={styles.acRegisterText}>注册</Link>
+        <Link to="/register" className={styles.acRegisterText}>登录</Link>
       </Row>
 
       <div className={styles.acRegisterGroup}>
@@ -101,4 +126,5 @@ export const Register: React.FC = () => {
   );
 };
 
-export default Register;
+
+export const Register = withRouter(connector(RegisterComp));

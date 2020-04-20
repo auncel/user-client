@@ -10,21 +10,49 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
-  Row, Form, Input, Button,
+  Row, Form, Input, Button, message,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import md5 from 'md5';
+import { ConnectedProps, connect, useDispatch } from 'react-redux';
 import styles from './styles.module.scss';
 import { Image } from '../../components';
 import logo from '../../assets/images/vertical-logo.png';
 import githubIcon from '../../assets/images/github.png';
+import UserApi, { IUserParams } from '../../network/UserApi';
+import { RootState } from '../../store';
+import { iniUser } from '../../store/user/actions';
+import { User } from '../../domain';
 
-export const Login: React.FC = () => {
-  const onSubmit = (data: object): void => {
-    console.log(data);
-  };
+const mapState = (state: RootState) => ({
+  user: state.user,
+});
+
+const mapDispatch = {
+  iniUserDispatch: iniUser,
+};
+
+const connector = connect(mapState, mapDispatch);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+const LoginComp: React.FC<PropsFromRedux & RouteComponentProps> = (props) => {
+  const { iniUserDispatch, history } = props;
+
+  const handleFinish = useCallback(async (valus) => {
+    valus.password = md5(`${valus.password}salt`);
+    try {
+      const respData = await new UserApi().login<User>(valus as IUserParams);
+      iniUserDispatch(respData.data);
+      history.push(`/u/${respData.data.username}`);
+    } catch (err) {
+      console.error(err);
+      message.error(err.message);
+    }
+  }, []);
 
   return (
     <div className={styles.acLoginBox}>
@@ -32,9 +60,9 @@ export const Login: React.FC = () => {
         <Image src={logo} width={100} />
       </Row>
 
-      <Form className={styles.acLoginGroup}>
+      <Form className={styles.acLoginGroup} onFinish={handleFinish}>
         <Form.Item
-          name="username"
+          name="email"
           rules={[{ required: true, message: '请输入邮箱' }]}
         >
           <Input
@@ -56,7 +84,7 @@ export const Login: React.FC = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button" block>
-            注册
+            登录
           </Button>
         </Form.Item>
       </Form>
@@ -76,4 +104,4 @@ export const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export const Login = withRouter(connector(LoginComp));
