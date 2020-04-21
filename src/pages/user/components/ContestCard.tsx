@@ -12,9 +12,12 @@
 import React from 'react';
 import { List } from 'antd';
 import { StarOutlined, StarFilled } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import { Card } from '../../../components/Card';
 import styles from './contest-card.module.scss';
 import Time from '../../../components/Time/index';
+import { UserContest, UserContestDto } from '../../../domain';
+import { ContestStatus } from '../../../components/ContestStatus';
 
 export interface IContestItem {
   title: string;
@@ -23,23 +26,32 @@ export interface IContestItem {
 }
 
 interface IContestCardProps {
-  data: IContestItem[];
+  data: UserContestDto[];
 }
 
 const ContestCard = (props: IContestCardProps) => {
   const { data } = props;
+  console.log(data);
   return (
     <Card title="最近竞赛" className={styles.contestCard}>
       <List
         bordered
         dataSource={data}
-        renderItem={(item) => (
+        renderItem={(item): JSX.Element => (
           <List.Item
-            extra={item.score < 50 ? <StarOutlined /> : <StarFilled />}
+            key={item.contest.id}
+            extra={(
+              <div>
+                <ContestStatus status={item.contest.status} />
+                {item.totalScore < 50 ? <StarOutlined /> : <StarFilled />}
+              </div>
+            )}
           >
             <div>
-              <span className={styles.listItemHeader}>{item.title}</span>
-              <Time date={item.startTime} />
+              <span className={styles.listItemHeader}>
+                <Link to={`/contests/${item.contest.id}`}>{item.contest.title}</Link>
+              </span>
+              <Time date={item.contest.startTime.toString()} />
             </div>
           </List.Item>
         )}

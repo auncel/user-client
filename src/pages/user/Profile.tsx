@@ -9,16 +9,17 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import React, { ReactNode } from 'react';
-import { Row, Col } from 'antd';
-import dayjs from 'dayjs';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { Row, Col, message } from 'antd';
 import ProfileCard from './components/ProfileCard';
-import { Card } from '../../components/Card';
-import styles from './style.module.scss';
 import AcceptanceRateCard from './components/AcceptanceRateCard';
 import SubmissionCard from './components/SubmissionCard';
 import ContestCard from './components/ContestCard';
 import SubmissionList from './components/SubmissionList';
+import { authentication } from '../../components/Authentication';
+import { IAuthProps } from '../../components/Authentication/authentication';
+import ContestApi from '../../network/ContestApi';
+import { UserContestDto } from '../../domain';
 
 interface IProfileProps {
   username?: string;
@@ -72,21 +73,37 @@ const mockSubmision = [
   },
 ];
 
-export const Profile: React.FC = (props: IProfileProps) => {
-  console.log();
+const contestApi = new ContestApi();
+
+export const ProfileComp: React.FC<IProfileProps & IAuthProps> = (props) => {
+  const { user } = props;
+  const [contests, setContests] = useState<UserContestDto[]>([]);
+
+  useEffect(() => {
+    contestApi.getByUser({ params: { userId: user.id! } })
+      .then((respData) => {
+        setContests(respData.data);
+      }).catch((err) => {
+        message.error(err);
+      });
+  }, []);
   return (
     <Row style={{ marginTop: '30px' }}>
       <Col span={8}>
-        <ProfileCard username="Yidafu" realname="Dov Yih" slogan="long long text" />
+        <ProfileCard
+          username={user.username!}
+          realname={user.realname}
+          slogan={user.slogan}
+        />
         <AcceptanceRateCard data={mockARData} />
       </Col>
       <Col span={16}>
         <SubmissionCard />
-        <ContestCard data={mockContest} />
+        <ContestCard data={contests} />
         <SubmissionList data={mockSubmision} />
       </Col>
     </Row>
   );
 };
 
-export default Profile;
+export const Profile = authentication(ProfileComp);
