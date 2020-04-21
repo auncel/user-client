@@ -25,7 +25,7 @@ import { Image } from '../../components';
 import logo from '../../assets/images/vertical-logo.png';
 import { iniUser } from '../../store/user/actions';
 import githubIcon from '../../assets/images/github.png';
-import UserApi, { IUserParams } from '../../network/UserApi';
+import UserApi from '../../network/UserApi';
 import { User } from '../../domain';
 
 const connector = connect(null, {
@@ -38,10 +38,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 export const RegisterComp: React.FC<PropsFromRedux & RouteComponentProps> = (props) => {
   const { iniUserDispatch, history } = props;
 
-  const handleFinish = useCallback(async (valus) => {
-    valus.password = md5(`${valus.password}salt`);
+  const handleFinish = useCallback(async (values) => {
+    values.password = md5(`${values.password}salt`);
+    delete values.passwordCheck;
     try {
-      const respData = await new UserApi().register<User>(valus);
+      const respData = await new UserApi().register<User>(values);
       iniUserDispatch(respData.data);
       history.push(`/u/${respData.data.username}`);
     } catch (err) {
@@ -95,7 +96,18 @@ export const RegisterComp: React.FC<PropsFromRedux & RouteComponentProps> = (pro
 
         <Form.Item
           name="passwordCheck"
-          rules={[{ required: true, message: '请输入密码' }]}
+          dependencies={['password']}
+          rules={[
+            { required: true, message: '请输入密码' },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                // eslint-disable-next-line prefer-promise-reject-errors
+                return Promise.reject('密码不一致');
+              },
+            })]}
         >
           <Input
             prefix={<KeyOutlined />}
@@ -113,7 +125,7 @@ export const RegisterComp: React.FC<PropsFromRedux & RouteComponentProps> = (pro
 
       <Row justify="end">
         {/* <Link to="/forget-password" className={styles.acRegisterText}>忘记秘密</Link> */}
-        <Link to="/register" className={styles.acRegisterText}>登录</Link>
+        <Link to="/login" className={styles.acRegisterText}>登录</Link>
       </Row>
 
       <div className={styles.acRegisterGroup}>

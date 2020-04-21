@@ -48,6 +48,7 @@ const LoginComp: React.FC<PropsFromRedux & RouteComponentProps> = (props) => {
       const respData = await new UserApi().login<User>(valus as IUserParams);
       iniUserDispatch(respData.data);
       history.push(`/u/${respData.data.username}`);
+      window.sessionStorage.setItem('isLogin', String(respData.data.id));
     } catch (err) {
       console.error(err);
       message.error(err.message);
