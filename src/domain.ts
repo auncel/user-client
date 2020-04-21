@@ -1,17 +1,24 @@
-/* --------------------------------------------------------------------------*
- * Description:                                                              *
- *                                                                           *
- * File Created: Monday, 20th April 2020 6:05 pm                             *
- * Author: yidafu(dov-yih) (me@yidafu.dev)                                   *
- *                                                                           *
- * Last Modified: Monday, 20th April 2020 6:05 pm                            *
- * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
- *                                                                           *
- * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
- *-------------------------------------------------------------------------- */
-/* eslint-disable @typescript-eslint/interface-name-prefix */
+/* -------------------------------------------------------------------------*
+* Description: Generated using typescript-generator from auncel-web-domain  *
+*                                                                           *
+* File Created: Monday, 20th April 2020 6:05 pm                             *
+* Author: yidafu(dov-yih) (me@yidafu.dev)                                   *
+*                                                                           *
+* Last Modified: Monday, 20th April 2020 6:05 pm                            *
+* Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
+*                                                                           *
+* Copyright 2019 - 2020 Mozilla Public License 2.0                          *
+*-------------------------------------------------------------------------- */
 
-// Generated using typescript-generator version 2.9.456 on 2020-04-20 18:11:45.
+/**
+ * @see https://ncjamieson.com/dont-export-const-enums/
+ * @see https://github.com/microsoft/fluentui/issues/7110
+ * @see https://github.com/facebook/create-react-app/issues/5681
+ */
+
+/* eslint-disable */
+
+// Generated using typescript-generator version 2.9.456 on 2020-04-21 22:47:16.
 
 export interface User extends BaseEntity {
   username: string;
@@ -20,12 +27,12 @@ export interface User extends BaseEntity {
   slogan: string;
   role: number;
   status: string;
-  registerTime: Date;
   registerIp: string;
   school: string;
   authLogs: AuthLog[];
   problems: Problem[];
   userAuths: UserAuth[];
+  notifications: Notification[];
   userContests: UserContest[];
 }
 
@@ -43,9 +50,10 @@ export interface AuthLog extends BaseEntity {
 
 export interface UserContest {
   totalScore: number;
-  status: string;
+  status: UserContestStatus;
   duration: number;
-  submitTime: Date;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export interface Problem extends BaseEntity {
@@ -66,10 +74,10 @@ export interface Problem extends BaseEntity {
 export interface Contest extends BaseEntity {
   title: string;
   clarification: string;
-  startTiem: Date;
+  startTime: Date;
   endTime: Date;
   timeLimit: number;
-  status: string;
+  status: ContestStatus;
   access: ContestAccessType;
   invitaionCode: string;
   userContests: UserContest[];
@@ -79,6 +87,8 @@ export interface Contest extends BaseEntity {
 export interface ContestProblem {
   problem: Problem;
   score: number;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export interface Notification extends BaseEntity {
@@ -92,49 +102,104 @@ export interface Submission extends BaseEntity {
   score: number;
   logs: string;
   screenshot: string;
-  ahtml: string;
   acss: SubmissionStatus;
+  ahtml: string;
 }
 
 export interface Tag extends BaseEntity {
   value: string;
 }
 
-export interface BaseEntity {
+export interface UserDto extends Serializable {
+  id: number;
+  username: string;
+  realname: string;
+  avatar: string;
+  status: string;
+  role: number;
+  registerIp: string;
+  slogan: string;
+  school: string;
+}
+
+export interface UserContestDto extends Serializable {
+  userId: number;
+  contestId: number;
+  totalScore: number;
+  status: UserContestStatus;
+  duration: number;
+  contest: ContestDto;
+}
+
+export interface UserRequestDto extends Serializable {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface ContestDto {
+  id: number;
+  title: string;
+  clarification: string;
+  startTime: Date;
+  endTime: Date;
+  timeLimit: number;
+  status: ContestStatus;
+  access: ContestAccessType;
+  invitaionCode: string;
+  createdAt: Date;
+}
+
+export interface BaseEntity extends Serializable {
   id: number;
   updatedAt: Date;
   createdAt: Date;
 }
 
+export interface Serializable {
+}
+
+export enum UserContestStatus {
+  UNANSWERED = "UNANSWERED",
+  ANSWERED = "ANSWERED",
+}
+
 export enum ProblemDifficulty {
-  Easy,
-  Medium,
-  Hard,
+  Easy = "Easy",
+  Medium = "Medium",
+  Hard = "Hard",
 }
 
 export enum ProblemAccessType {
-  PUBLIC,
-  PRIVATE,
-  INTERNAL,
+  PUBLIC = "PUBLIC",
+  PRIVATE = "PRIVATE",
+  INTERNAL = "INTERNAL",
+}
+
+export enum ContestStatus {
+  PENDING = "PENDING",
+  RUNNING = "RUNNING",
+  ENDED = "ENDED",
 }
 
 export enum ContestAccessType {
-  PUBLIC,
-  PRIVATE,
-  INTERNAL,
+  PUBLIC = "PUBLIC",
+  PRIVATE = "PRIVATE",
+  INTERNAL = "INTERNAL",
 }
 
 export enum NotificationLevel {
-  ANNOUNCEMENT,
-  NOTICE,
+  ANNOUNCEMENT = "ANNOUNCEMENT",
+  NOTICE = "NOTICE",
 }
 
 export enum SubmissionStatus {
-  ACCEPT,
-  PADDING,
-  PADDING_TIMEOUT,
-  JUDGING,
-  WRONG_ANWSER,
-  RENDER_ERROR,
-  SYNTAX_ERROR,
+  ACCEPT = "ACCEPT",
+  PADDING = "PADDING",
+  PADDING_TIMEOUT = "PADDING_TIMEOUT",
+  JUDGING = "JUDGING",
+  WRONG_ANWSER = "WRONG_ANWSER",
+  RENDER_ERROR = "RENDER_ERROR",
+  SYNTAX_ERROR = "SYNTAX_ERROR",
 }
