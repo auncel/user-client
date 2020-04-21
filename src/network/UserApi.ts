@@ -16,7 +16,7 @@ import 'reflect-metadata';
 import HttpRequest from './HttpRequest';
 import HostMap from './hostMap';
 import { IReponseResult } from './ResponseResult';
-import { Post } from './PostDecorator';
+import { Post } from './decorator';
 
 export interface IUserParams {
   username?: string;

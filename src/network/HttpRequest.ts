@@ -31,8 +31,26 @@ export default class HttpRequest {
     return `${this.baseURL}/${this.name}`;
   }
 
-  get<T>(config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.client.get(this.url, config);
+  async get<T>(suffix: string, config?: AxiosRequestConfig): Promise<IReponseResult<T>>;
+
+  async get<T>(config?: AxiosRequestConfig): Promise<IReponseResult<T>> ;
+
+  async get<T>(...args: any[]): Promise<IReponseResult<T>> {
+    let config: AxiosRequestConfig;
+    /* eslint-disable */
+    let url = this.url;
+    if (typeof args[0] === 'string') {
+      url += `/${args[0]}`;
+      
+      config = args[1];
+    } else {
+      config = args[0];
+    }
+    const resp = await this.client.get(url, { ...config, withCredentials: true });
+    if (resp.data.success) {
+      return resp.data;
+    }
+    throw new Error(resp.data.msg);
   }
 
   public async post<T>(suffix: string, data?: any, config?: AxiosRequestConfig): Promise<IReponseResult<T>>;
@@ -54,7 +72,7 @@ export default class HttpRequest {
       config = args[1];
     }
 
-    const resp = await this.client.post(url, data, config);
+    const resp = await this.client.post(url, data, {...config, withCredentials: true });
     if (resp.data.success) {
       return resp.data;
     }
