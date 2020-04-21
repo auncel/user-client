@@ -18,6 +18,7 @@ import AvatarSetting from './components/AvatarSetting';
 import PublicInfoSetting from './components/PublicInfoSetting';
 import AccountSetting from './components/AccountSetting';
 import SecurityLog from './components/SecurityLog';
+import { authentication } from '../../components/Authentication';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISettingProps {
@@ -60,4 +61,4 @@ export const Setting = (props: ISettingProps) => {
   );
 };
 
-export default Setting;
+export default authentication(Setting);

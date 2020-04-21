@@ -10,6 +10,7 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 export interface IUserState {
+  id?: number;
   username?: string;
   realname?: string;
   avatar?: string;
