@@ -78,4 +78,31 @@ export default class HttpRequest {
     }
     throw new Error(resp.data.msg);
   }
+
+  
+  public async put<T>(suffix: string, data?: any, config?: AxiosRequestConfig): Promise<IReponseResult<T>>;
+
+  public async put<T>(data?: any, config?: AxiosRequestConfig): Promise<IReponseResult<T>>;
+
+  public async put<T>(...args: any[]): Promise<IReponseResult<T>> {
+    let data: any;
+    let config: AxiosRequestConfig;
+    /* eslint-disable */
+    let url = this.url;
+    if (typeof args[0] === 'string') {
+      url += `/${args[0]}`;
+      
+      data = args[1];
+      config = args[2];
+    } else {
+      data = args[0];
+      config = args[1];
+    }
+
+    const resp = await this.client.put(url, data, {...config, withCredentials: true });
+    if (resp.data.success) {
+      return resp.data;
+    }
+    throw new Error(resp.data.msg);
+  }
 }
