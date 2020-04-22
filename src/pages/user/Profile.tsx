@@ -19,7 +19,8 @@ import SubmissionList from './components/SubmissionList';
 import { authentication } from '../../components/Authentication';
 import { IAuthProps } from '../../components/Authentication/authentication';
 import ContestApi from '../../network/ContestApi';
-import { UserContestDto } from '../../domain';
+import { UserContestDto, SubmissionDto } from '../../domain';
+import SubmissionApi from '../../network/SubmissionApi';
 
 interface IProfileProps {
   username?: string;
@@ -37,47 +38,14 @@ const mockARData = [
   },
 ];
 
-const mockContest = [
-  {
-    title: '竞赛标题',
-    startTime: '2020-04-16T07:56:03.296Z',
-    score: 80,
-  },
-  {
-    title: '竞赛标题',
-    startTime: '2020-04-16T07:56:03.296Z',
-    score: 80,
-  },
-  {
-    title: '竞赛标题',
-    startTime: '2020-04-16T07:56:03.296Z',
-    score: 80,
-  },
-];
-
-const mockSubmision = [
-  {
-    title: '问题标题',
-    startTime: '2020-04-16T07:56:03.296Z',
-    status: 0,
-  },
-  {
-    title: '问题标题',
-    startTime: '2020-04-16T07:56:03.296Z',
-    status: 4,
-  },
-  {
-    title: '问题标题',
-    startTime: '2020-04-16T07:56:03.296Z',
-    status: 0,
-  },
-];
 
 const contestApi = new ContestApi();
+const submissionAPi = new SubmissionApi();
 
 export const ProfileComp: React.FC<IProfileProps & IAuthProps> = (props) => {
   const { user } = props;
   const [contests, setContests] = useState<UserContestDto[]>([]);
+  const [submisison, setSubmisison] = useState<SubmissionDto[]>([]);
 
   useEffect(() => {
     contestApi.getByUser({ params: { userId: user.id! } })
@@ -86,11 +54,18 @@ export const ProfileComp: React.FC<IProfileProps & IAuthProps> = (props) => {
       }).catch((err) => {
         message.error(err);
       });
+    submissionAPi.getByUser({ params: { userId: user.id! } })
+      .then((respData) => {
+        setSubmisison(respData.data);
+      }).catch((err) => {
+        message.error(err);
+      });
   }, []);
   return (
     <Row style={{ marginTop: '30px' }}>
       <Col span={8}>
         <ProfileCard
+          avatar={user.avatar}
           username={user.username!}
           realname={user.realname}
           slogan={user.slogan}
@@ -100,7 +75,7 @@ export const ProfileComp: React.FC<IProfileProps & IAuthProps> = (props) => {
       <Col span={16}>
         <SubmissionCard />
         <ContestCard data={contests} />
-        <SubmissionList data={mockSubmision} />
+        <SubmissionList data={submisison} />
       </Col>
     </Row>
   );

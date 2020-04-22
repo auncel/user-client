@@ -16,15 +16,10 @@ import { SubmissionStatus } from '../../../components/SubmisionStatus';
 import styles from './submission-list.module.scss';
 import Time from '../../../components/Time';
 import { SubmissionStatus as SubmissionStatusEnum } from '../../../enum';
-
-export interface ISubmissionItem {
-  title: string;
-  startTime: string;
-  status: SubmissionStatusEnum;
-}
+import { SubmissionDto } from '../../../domain';
 
 interface ISubmissionListProps {
-   data: ISubmissionItem[];
+   data: SubmissionDto[];
 }
 
 const SubmissionList = (props: ISubmissionListProps) => {
@@ -39,8 +34,8 @@ const SubmissionList = (props: ISubmissionListProps) => {
             extra={<SubmissionStatus status={item.status} />}
           >
             <div>
-              <span className={styles.listItemHeader}>{item.title}</span>
-              <Time date={item.startTime} />
+              <span className={styles.listItemHeader}>{item.problem.title}</span>
+              <Time date={item.createdAt.toString()} />
             </div>
           </List.Item>
         )}
