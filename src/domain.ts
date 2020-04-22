@@ -18,7 +18,7 @@
 
 /* eslint-disable */
 
-// Generated using typescript-generator version 2.9.456 on 2020-04-21 22:47:16.
+// Generated using typescript-generator version 2.9.456 on 2020-04-22 21:22:59.
 
 export interface User extends BaseEntity {
   username: string;
@@ -31,6 +31,7 @@ export interface User extends BaseEntity {
   school: string;
   authLogs: AuthLog[];
   problems: Problem[];
+  submissions: Submission[];
   userAuths: UserAuth[];
   notifications: Notification[];
   userContests: UserContest[];
@@ -98,12 +99,13 @@ export interface Notification extends BaseEntity {
 }
 
 export interface Submission extends BaseEntity {
-  status: string;
+  status: SubmissionStatus;
   score: number;
   logs: string;
   screenshot: string;
-  acss: SubmissionStatus;
+  submiter: User;
   ahtml: string;
+  acss: string;
 }
 
 export interface Tag extends BaseEntity {
@@ -122,6 +124,19 @@ export interface UserDto extends Serializable {
   school: string;
 }
 
+export interface SubmissionDto extends Serializable {
+  id: number;
+  status: SubmissionStatus;
+  score: number;
+  logs: string;
+  screenshot: string;
+  problem: ProblemDto;
+  createdAt: Date;
+  updatedAt: Date;
+  ahtml: string;
+  acss: string;
+}
+
 export interface UserContestDto extends Serializable {
   userId: number;
   contestId: number;
@@ -138,7 +153,7 @@ export interface UserRequestDto extends Serializable {
   password: string;
 }
 
-export interface ContestDto {
+export interface ContestDto extends Serializable {
   id: number;
   title: string;
   clarification: string;
@@ -149,6 +164,24 @@ export interface ContestDto {
   access: ContestAccessType;
   invitaionCode: string;
   createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ProblemDto extends Serializable {
+  id: number;
+  title: string;
+  description: string;
+  renderTree: string;
+  stars: number;
+  difficulty: ProblemDifficulty;
+  acceptance: number;
+  submission: number;
+  access: ProblemAccessType;
+  tags: Tag[];
+  createdAt: Date;
+  updatedAt: Date;
+  qhtml: string;
+  qcss: string;
 }
 
 export interface BaseEntity extends Serializable {
