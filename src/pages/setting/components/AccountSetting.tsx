@@ -11,8 +11,16 @@
  *-------------------------------------------------------------------------- */
 
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Card } from '../../../components/Card';
 import ProfileField from './ProfileField';
+import { RootState } from '../../../store';
+
+const connector = connect((state: RootState) => ({
+  user: state.user,
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>
 
 interface IAccountSettingProps {
   username: string;
@@ -21,17 +29,18 @@ interface IAccountSettingProps {
   school?: string;
 }
 
-const AccountSetting = (props: IAccountSettingProps) => {
+const AccountSetting: React.FC<IAccountSettingProps & PropsFromRedux> = (props) => {
+  const { user } = props;
   const {
-    username, realname, slogan, school,
-  } = props;
+    id, username, slogan, school,
+  } = user ?? {};
   return (
     <Card title="账号信息" plain>
-      <ProfileField title="ID" field="username" value="yidafu" />
-      <ProfileField title="邮箱" field="email" value="test@test.com" />
-      <ProfileField title="修改秘密" field="password" value="*****" />
+      <ProfileField userId={id!} title="ID" field="username" value={username!} />
+      <ProfileField userId={id!} title="邮箱" field="email" value="test@test.com" />
+      <ProfileField userId={id!} title="修改秘密" field="password" value="*****" />
     </Card>
   );
 };
 
-export default AccountSetting;
+export default connector(AccountSetting);

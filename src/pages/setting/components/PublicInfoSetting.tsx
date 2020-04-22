@@ -10,9 +10,18 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Card } from '../../../components/Card';
 import ProfileField from './ProfileField';
 import styles from './public-info-setting.module.scss';
+import { RootState } from '../../../store';
+
+const connector = connect((state: RootState) => ({
+  user: state.user,
+}));
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
 
 interface IPublicInfoSettingProps {
   username: string;
@@ -21,17 +30,18 @@ interface IPublicInfoSettingProps {
   school?: string;
 }
 
-const PublicInfoSetting = (props: IPublicInfoSettingProps) => {
+const PublicInfoSetting: React.FC<IPublicInfoSettingProps & PropsFromRedux> = (props) => {
+  const { user } = props;
   const {
-    username, realname, slogan, school,
-  } = props;
+    id, realname, slogan, school,
+  } = user ?? {};
   return (
     <Card title="个人信息" plain className={styles.publicInfoSetting}>
-      <ProfileField title="姓名" field="username" value="易大富" />
-      <ProfileField title="签名" field="slogan" value="这是一段签名。" />
-      <ProfileField title="学校" field="school" value="HDU" />
+      <ProfileField userId={id!} title="姓名" field="realname" value={realname!} />
+      <ProfileField userId={id!} title="签名" field="slogan" value={slogan!} />
+      <ProfileField userId={id!} title="学校" field="school" value={school!} />
     </Card>
   );
 };
 
-export default PublicInfoSetting;
+export default connector(PublicInfoSetting);

@@ -19,14 +19,15 @@ import PublicInfoSetting from './components/PublicInfoSetting';
 import AccountSetting from './components/AccountSetting';
 import SecurityLog from './components/SecurityLog';
 import { authentication } from '../../components/Authentication';
+import { IAuthProps } from '../../components/Authentication/authentication';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISettingProps {
-
 }
 
-export const Setting = (props: ISettingProps) => {
+export const SettingComp: React.FC<ISettingProps & IAuthProps> = (props) => {
   console.log();
+  const { user } = props;
   return (
     <Row className={styles.setting}>
       <Col span={8}>
@@ -37,7 +38,7 @@ export const Setting = (props: ISettingProps) => {
           path="/setting/profile"
           render={() => (
             <>
-              <AvatarSetting />
+              <AvatarSetting avatar={user.avatar} />
               <PublicInfoSetting username="yidafu" />
             </>
           )}
@@ -61,4 +62,4 @@ export const Setting = (props: ISettingProps) => {
   );
 };
 
-export default authentication(Setting);
+export const Setting = authentication(SettingComp);
