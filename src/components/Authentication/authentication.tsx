@@ -16,9 +16,11 @@ import { connect } from 'react-redux';
 import { RootState } from '../../store';
 import { IUserState } from '../../store/user/types';
 import UserApi from '../../network/UserApi';
+import { initUser } from '../../store/user/actions';
 
 export interface IAuthProps {
   user: IUserState;
+  initUser: typeof initUser;
 }
 
 export interface IAuthState {
@@ -28,7 +30,6 @@ export interface IAuthState {
 }
 
 export const authentication = (Comp: React.ComponentType<any>) => {
-  console.log('auth');
   class Authentication extends React.Component<any, IAuthState> {
     // eslint-disable-next-line react/state-in-constructor
     state = {
@@ -44,6 +45,8 @@ export const authentication = (Comp: React.ComponentType<any>) => {
       try {
         const resp = await new UserApi()
           .get<IUserState>({ params: { id: userId } });
+        // eslint-disable-next-line react/destructuring-assignment
+        this.props.initUser(resp.data);
         this.setState({
           loading: false,
           isLogin,
@@ -74,5 +77,8 @@ export const authentication = (Comp: React.ComponentType<any>) => {
 
   return connect(
     (state: RootState) => ({ user: state.user }),
+    {
+      initUser,
+    },
   )(Authentication);
 };
