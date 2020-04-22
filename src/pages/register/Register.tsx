@@ -23,13 +23,13 @@ import md5 from 'md5';
 import styles from './styles.module.scss';
 import { Image } from '../../components';
 import logo from '../../assets/images/vertical-logo.png';
-import { iniUser } from '../../store/user/actions';
+import { initUser } from '../../store/user/actions';
 import githubIcon from '../../assets/images/github.png';
 import UserApi from '../../network/UserApi';
 import { User } from '../../domain';
 
 const connector = connect(null, {
-  iniUserDispatch: iniUser,
+  iniUserDispatch: initUser,
 });
 
 type PropsFromRedux = ConnectedProps<typeof connector>

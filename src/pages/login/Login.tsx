@@ -17,14 +17,14 @@ import {
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import md5 from 'md5';
-import { ConnectedProps, connect, useDispatch } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import styles from './styles.module.scss';
 import { Image } from '../../components';
 import logo from '../../assets/images/vertical-logo.png';
 import githubIcon from '../../assets/images/github.png';
 import UserApi, { IUserParams } from '../../network/UserApi';
 import { RootState } from '../../store';
-import { iniUser } from '../../store/user/actions';
+import { initUser } from '../../store/user/actions';
 import { User } from '../../domain';
 
 const mapState = (state: RootState) => ({
@@ -32,7 +32,7 @@ const mapState = (state: RootState) => ({
 });
 
 const mapDispatch = {
-  iniUserDispatch: iniUser,
+  iniUserDispatch: initUser,
 };
 
 const connector = connect(mapState, mapDispatch);

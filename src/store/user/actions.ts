@@ -13,7 +13,7 @@
 import { IUserState, UserActionTypes, INIT_USER } from './types';
 
 
-export function iniUser(user: IUserState): UserActionTypes {
+export function initUser(user: IUserState): UserActionTypes {
   return {
     type: INIT_USER,
     payload: user,
