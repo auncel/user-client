@@ -18,7 +18,7 @@
 
 /* eslint-disable */
 
-// Generated using typescript-generator version 2.9.456 on 2020-04-22 21:22:59.
+// Generated using typescript-generator version 2.9.456 on 2020-04-23 22:44:55.
 
 export interface User extends BaseEntity {
   username: string;
@@ -68,8 +68,8 @@ export interface Problem extends BaseEntity {
   access: ProblemAccessType;
   tags: Tag[];
   submissions: Submission[];
-  qhtml: string;
   qcss: string;
+  qhtml: string;
 }
 
 export interface Contest extends BaseEntity {
@@ -149,6 +149,7 @@ export interface UserContestDto extends Serializable {
 export interface UserRequestDto extends Serializable {
   id: number;
   username: string;
+  realname: string;
   email: string;
   password: string;
 }
@@ -163,6 +164,7 @@ export interface ContestDto extends Serializable {
   status: ContestStatus;
   access: ContestAccessType;
   invitaionCode: string;
+  maker: UserDto;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -173,6 +175,7 @@ export interface ProblemDto extends Serializable {
   description: string;
   renderTree: string;
   stars: number;
+  status: ProblemStatusType;
   difficulty: ProblemDifficulty;
   acceptance: number;
   submission: number;
@@ -180,8 +183,27 @@ export interface ProblemDto extends Serializable {
   tags: Tag[];
   createdAt: Date;
   updatedAt: Date;
-  qhtml: string;
   qcss: string;
+  qhtml: string;
+}
+
+export interface AuthLogDto extends Serializable {
+  id: number;
+  loginIp: string;
+  logUser: UserDto;
+  title: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface UserAuthDto extends Serializable {
+  id: number;
+  identityType: string;
+  identifier: string;
+  credential: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface BaseEntity extends Serializable {
@@ -235,4 +257,11 @@ export enum SubmissionStatus {
   WRONG_ANWSER = "WRONG_ANWSER",
   RENDER_ERROR = "RENDER_ERROR",
   SYNTAX_ERROR = "SYNTAX_ERROR",
+}
+
+export enum ProblemStatusType {
+  NONE = "NONE",
+  WORKING_ON = "WORKING_ON",
+  WRONG_ANSWER = "WRONG_ANSWER",
+  ACCEPTED = "ACCEPTED",
 }
