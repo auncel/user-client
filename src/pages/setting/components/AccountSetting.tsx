@@ -10,11 +10,13 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Card } from '../../../components/Card';
 import ProfileField from './ProfileField';
 import { RootState } from '../../../store';
+import UserAuthApi from '../../../network/UserAuthApi';
+import { UserAuthDto } from '../../../domain';
 
 const connector = connect((state: RootState) => ({
   user: state.user,
@@ -31,14 +33,37 @@ interface IAccountSettingProps {
 
 const AccountSetting: React.FC<IAccountSettingProps & PropsFromRedux> = (props) => {
   const { user } = props;
+  const [userAuth, setUserAuth] = useState<Partial<UserAuthDto>>({});
   const {
-    id, username, slogan, school,
+    id, username,
   } = user ?? {};
+  async function callback() {
+    const respData = await new UserAuthApi().get<UserAuthDto>();
+    setUserAuth(respData.data);
+  }
+
+  useEffect(() => {
+    callback();
+  }, []);
   return (
     <Card title="账号信息" plain>
       <ProfileField userId={id!} title="ID" field="username" value={username!} />
-      <ProfileField userId={id!} title="邮箱" field="email" value="test@test.com" />
-      <ProfileField userId={id!} title="修改秘密" field="password" value="*****" />
+      <ProfileField
+        userId={id!}
+        type="account"
+        title="邮箱"
+        field="identifier"
+        value={userAuth.identifier!}
+        onSuccess={callback}
+      />
+      <ProfileField
+        userId={id!}
+        type="account"
+        title="修改秘密"
+        field="credential"
+        value="******"
+        onSuccess={callback}
+      />
     </Card>
   );
 };

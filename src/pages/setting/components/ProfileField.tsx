@@ -9,13 +9,23 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import React, { useState, useCallback, ChangeEvent } from 'react';
+import React, {
+  useState, useCallback, ChangeEvent, useEffect,
+} from 'react';
 import { EditOutlined, CheckOutlined } from '@ant-design/icons';
 import { Input, message } from 'antd';
 import { connect, ConnectedProps } from 'react-redux';
+import md5 from 'md5';
 import styles from './profile-field.module.scss';
 import UserApi from '../../../network/UserApi';
-import { RootState } from '../../../store';
+import UserAuthApi from '../../../network/UserAuthApi';
+import { updateUser } from '../../../store/user/actions';
+
+const connector = connect(null, {
+  updateUser,
+});
+
+type PropsWithRedux = ConnectedProps<typeof connector>;
 
 interface IProfileFieldProps {
   userId: number;
@@ -23,23 +33,37 @@ interface IProfileFieldProps {
   title: string;
   field: string;
   value: string;
+  onSuccess?: () => void;
 }
 
 const userApi = new UserApi();
 
-const ProfileField: React.FC<IProfileFieldProps> = (props) => {
+const ProfileField: React.FC<IProfileFieldProps & PropsWithRedux> = (props) => {
   const {
-    type, title, field, value, userId,
+    type, title, field, value, userId, updateUser, onSuccess,
   } = props;
   const [editable, setEditable] = useState<boolean>(false);
   const [fieldValue, setFieldValue] = useState<string>('');
 
   const handleFieldSave = useCallback(async () => {
     try {
-      const respData = await userApi.put<boolean>({ id: userId, [field]: fieldValue });
-      message.success(respData.msg ?? `更新${title}成功`);
+      if (type === 'profile') {
+        const partialUser = { id: userId, [field]: fieldValue };
+        await userApi.put<boolean>(partialUser);
+        message.success(`更新${title}成功`);
+        updateUser(partialUser);
+      } else {
+        let value = fieldValue;
+        if (field === 'credential') {
+          value = md5(`${fieldValue}salt`);
+        }
+        await new UserAuthApi().put({ [field]: value });
+        message.success(`更新${title}成功`);
+      }
+      // eslint-disable-next-line no-unused-expressions
+      onSuccess && onSuccess();
     } catch (err) {
-      message.error(err);
+      message.error(err.toString());
     } finally {
       setEditable(false);
     }
@@ -52,12 +76,16 @@ const ProfileField: React.FC<IProfileFieldProps> = (props) => {
       setFieldValue(evt.target.value);
     }, [],
   );
+
+  useEffect(() => {
+    setFieldValue(value);
+  }, [value]);
+
   return (
     <div className={styles.profileField}>
-      <span>{title}</span>
+      <span className={styles.profileFieldTitle}>{title}</span>
       {editable ? (
         <Input
-          defaultValue={value}
           value={fieldValue}
           style={{ width: '300px' }}
           onChange={handleChange}
@@ -70,4 +98,4 @@ const ProfileField: React.FC<IProfileFieldProps> = (props) => {
   );
 };
 
-export default ProfileField;
+export default connector(ProfileField);
