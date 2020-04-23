@@ -10,8 +10,16 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 import React from 'react';
+import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
+import { ColumnsType } from 'antd/lib/table';
 import { ProblemDifficulty } from '../../enum';
 import { DifficultyTag } from '../../components/DifficultyTag';
+import {
+  UserDto, ContestStatus as ContestStatusEnum, ContestAccessType, ContestDto,
+} from '../../domain';
+import { ContestStatus } from '../../components/ContestStatus';
+import { ContestAccess } from '../../components/ContestAccess';
 
 export default [
   {
@@ -26,25 +34,24 @@ export default [
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    render(title: string): string {
-      return title;
+    render(title: string, record: ContestDto) {
+      return <Link to={`/contests/${record.id}`}>{title}</Link>;
     },
   },
   {
-    title: 'start Timg',
+    title: 'Start Timg',
     dataIndex: 'startTime',
     key: 'startTime',
     render(startTime: string): string {
-      return startTime;
+      return dayjs(startTime).format('YYYY-MM-DD hh:mm');
     },
   },
   {
     title: 'End Time',
     dataIndex: 'endTime',
     key: 'endTime',
-    width: 100,
     render(endTime: string): string {
-      return endTime;
+      return dayjs(endTime).format('YYYY-MM-DD hh:mm');
     },
   },
 
@@ -52,26 +59,25 @@ export default [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    render(status: string): string {
-      return status;
+    render(status: ContestStatusEnum) {
+      return <ContestStatus status={status} />;
     },
   },
-
   {
     title: 'Type',
-    dataIndex: 'type',
-    key: 'type',
-    render(type: string): string {
-      return type;
+    dataIndex: 'access',
+    key: 'access',
+    align: 'center',
+    render(access: ContestAccessType) {
+      return <ContestAccess access={access} />;
     },
   },
-
   {
     title: 'Holder',
     dataIndex: 'maker',
     key: 'maker',
-    render(maker: string): string {
-      return maker;
+    render(maker: UserDto): string {
+      return maker.username + (maker.realname ? `(${maker.realname})` : '');
     },
   },
-];
+] as ColumnsType<ContestDto>;

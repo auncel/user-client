@@ -11,8 +11,11 @@
  *-------------------------------------------------------------------------- */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ColumnsType } from 'antd/lib/table';
 import { ProblemDifficulty } from '../../enum';
 import { DifficultyTag } from '../../components/DifficultyTag';
+import { ProblemDto, ProblemStatusType } from '../../domain';
+import { ProblemStatus } from '../../components/ProblemStatus';
 
 export default [
   {
@@ -20,15 +23,15 @@ export default [
     dataIndex: 'id',
     key: 'id',
     width: 80,
-    render(id: number) {
-      return <Link to={`/problems/${id}`}>{String(id).padStart(3, '0')}</Link>;
+    render(id: number): string {
+      return String(id).padStart(3, '0');
     },
   },
   {
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    render(title: string, record: any) {
+    render(title: string, record: ProblemDto) {
       return <Link to={`/problems/${record.id}`}>{title}</Link>;
     },
   },
@@ -37,17 +40,17 @@ export default [
     dataIndex: 'status',
     key: 'status',
     width: 120,
-    render(title: string): string {
-      return title;
+    render(status: ProblemStatusType) {
+      return <ProblemStatus status={status} />;
     },
   },
   {
     title: 'Acceptance',
-    dataIndex: 'acceptance',
+    // dataIndex: 'acceptance',
     key: 'acceptance',
     width: 120,
-    render(acceptance: number): string {
-      return `${acceptance}%`;
+    render(acceptance: number, record: ProblemDto): string {
+      return `${record.acceptance / Math.max(record.submission, 1)}%`;
     },
   },
 
@@ -60,4 +63,7 @@ export default [
       return <DifficultyTag type={diffculty} />;
     },
   },
-];
+] as ColumnsType<ProblemDto>;
+
+
+// select id, created_at, updated_at, a_css, a_html, logs, problem_id, score, screenshot, status, submiter_id from submission  where problem_id=? limit ?
