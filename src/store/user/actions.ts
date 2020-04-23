@@ -10,12 +10,21 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import { IUserState, UserActionTypes, INIT_USER } from './types';
+import {
+  IUserState, UserActionTypes, INIT_USER, UPDATE_USER,
+} from './types';
 
 
 export function initUser(user: IUserState): UserActionTypes {
   return {
     type: INIT_USER,
+    payload: user,
+  };
+}
+
+export function updateUser(user: Partial<IUserState>): UserActionTypes {
+  return {
+    type: UPDATE_USER,
     payload: user,
   };
 }

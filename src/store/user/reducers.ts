@@ -10,7 +10,9 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import { IUserState, UserActionTypes, INIT_USER } from './types';
+import {
+  IUserState, UserActionTypes, INIT_USER, UPDATE_USER,
+} from './types';
 
 const initailState: IUserState = {
 
@@ -24,6 +26,8 @@ export function userReducer(state = initailState, action: UserActionTypes): IUse
         ...action.payload,
       };
     }
+    case UPDATE_USER:
+      return { ...state, ...action.payload };
     default:
       return state;
   }

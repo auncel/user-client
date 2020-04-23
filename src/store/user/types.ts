@@ -24,10 +24,17 @@ export interface IUserState {
 
 
 export const INIT_USER = 'INIT_USER';
+export const UPDATE_USER = 'UPDATE_USER';
 
 export interface IInitUserAction {
   type: typeof INIT_USER;
   payload: IUserState;
 }
 
-export type UserActionTypes = IInitUserAction;
+export interface IUpdateUserAction {
+  type: typeof UPDATE_USER;
+  payload: Partial<IUserState>;
+}
+
+
+export type UserActionTypes = IInitUserAction | IUpdateUserAction;
