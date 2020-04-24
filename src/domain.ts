@@ -18,7 +18,7 @@
 
 /* eslint-disable */
 
-// Generated using typescript-generator version 2.9.456 on 2020-04-23 22:44:55.
+// Generated using typescript-generator version 2.9.456 on 2020-04-24 15:34:45.
 
 export interface User extends BaseEntity {
   username: string;
@@ -180,7 +180,7 @@ export interface ProblemDto extends Serializable {
   acceptance: number;
   submission: number;
   access: ProblemAccessType;
-  tags: Tag[];
+  tags: TagDto[];
   createdAt: Date;
   updatedAt: Date;
   qcss: string;
@@ -213,6 +213,13 @@ export interface BaseEntity extends Serializable {
 }
 
 export interface Serializable {
+}
+
+export interface TagDto {
+  id: number;
+  value: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export enum UserContestStatus {
