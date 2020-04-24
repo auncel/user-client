@@ -40,3 +40,22 @@
   align-items: center;
   width: 300px;
 }
+
+ul.headerHover {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 6px;
+  }
+
+  li:not(:last-child) {
+    // stylelint-disable  
+    @include bottom-line;
+  }
+
+  a {
+    color: #232323;
+  }
+}

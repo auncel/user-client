@@ -13,6 +13,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, connect, ConnectedProps } from 'react-redux';
+import { Popover } from 'antd';
 import styles from './header.module.scss';
 import { Image } from '../Image';
 import haderConfig from '../../config/header';
@@ -30,6 +31,42 @@ const HeaderComp: React.FC<PropsFromRedux> = (props) => {
   // const user = useSelector();
   const { user } = props;
 
+  function renderRight() {
+    if (user.username) {
+      const profileContent = (
+        <ul className={styles.headerHover}>
+          <li>
+            <Link to={`/u/${user.username}`}>
+              {user.username}
+            </Link>
+          </li>
+          <li>
+            <Link to="/setting">
+              Setting
+            </Link>
+          </li>
+        </ul>
+      );
+      return (
+        <Popover content={(
+          profileContent
+      )}
+        >
+          <Link to="/u/yidafu">
+            <Image src={user.avatar || userImg} alt="头像" width={30} />
+          </Link>
+        </Popover>
+      );
+    }
+    return (
+      <div>
+        <Link to="/login">Login</Link>
+        {' | '}
+        <Link to="/register">Register</Link>
+      </div>
+    );
+  }
+
   return (
     <nav className={styles.acHeader}>
       <div className={styles.acHeaderContainer}>
@@ -42,11 +79,9 @@ const HeaderComp: React.FC<PropsFromRedux> = (props) => {
             <li />
           </ul>
         </div>
+
         <div className={styles.acHeaderRight}>
-          {/* <Image src={bellImg} alt="最新消息" width={20} /> */}
-          <Link to="/u/yidafu">
-            <Image src={user.avatar || userImg} alt="头像" width={30} />
-          </Link>
+          {renderRight()}
         </div>
       </div>
     </nav>
