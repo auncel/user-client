@@ -14,3 +14,7 @@ body {
 .ant-table-thead > tr > th {
   background-color: #fff;
 }
+
+.ant-tabs-nav-scroll {
+  text-align: center;
+}
