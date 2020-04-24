@@ -37,7 +37,7 @@ export const Problem: React.FC<IProblemProps> = (props) => {
   useEffect(() => {
     async function fetchProblems() {
       try {
-        const respData = await problmeApi.get<ProblemDto[]>({ params: { contestId } });
+        const respData = await problmeApi.getByContest({ params: { contestId } });
         setProblems(respData.data);
       } catch (err) {
         message.error(err.toString());
@@ -53,6 +53,9 @@ export const Problem: React.FC<IProblemProps> = (props) => {
         pagination={{
           position: 'bottomLeft',
           defaultPageSize: 20,
+          style: {
+            margin: '15px 30px',
+          },
         }}
       />
     </div>

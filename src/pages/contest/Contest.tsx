@@ -51,6 +51,9 @@ export const Contest: React.FC<IContestProps> = (props) => {
         pagination={{
           position: 'bottomLeft',
           defaultPageSize: 20,
+          style: {
+            margin: '15px 30px',
+          },
         }}
       />
     </div>
