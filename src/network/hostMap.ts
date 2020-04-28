@@ -11,6 +11,7 @@
  *-------------------------------------------------------------------------- */
 enum HostMap {
   Default = 'http://api.auncel.top',
+  JudgeCenter = 'http://judge.auncel.top',
   UserCenter = 'http://localhost:3001',
 }
 
