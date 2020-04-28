@@ -32,7 +32,10 @@ export const BaseLayout: React.FC<IBaseLayoutProps> = (props) => {
         </div>
       </div>
       <div className={styles.acLayoutFooter}>
-        Footer
+        <div>
+          <a href="http://www.beian.miit.gov.cn">渝ICP备16013255号-4</a>
+          <span>Copyright © 2020 Dov Yih</span>
+        </div>
       </div>
     </div>
   );

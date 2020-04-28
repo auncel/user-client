@@ -22,5 +22,15 @@
 }
 
 .acLayoutFooter {
-  height: 300px;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  font-size: 12px;
+
+  div {
+     width: 800px;
+     display: flex;
+     justify-content: space-around;
+   }
 }
