@@ -10,7 +10,7 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, connect, ConnectedProps } from 'react-redux';
 import { Popover } from 'antd';
@@ -21,15 +21,31 @@ import horizontalLogo from '../../assets/images/horizontal-logo.png';
 import bellImg from '../../assets/images/bell.png';
 import userImg from '../../assets/images/user.png';
 import { RootState } from '../../store';
+import { initUser } from '../../store/user/actions';
+import UserApi from '../../network/UserApi';
+import { UserDto } from '../../domain';
 
 const connector = connect((state: RootState) => ({
   user: state.user,
-}));
+}), {
+  initUser,
+});
 type PropsFromRedux = ConnectedProps<typeof connector>
+
+const userApi = new UserApi();
+
 
 const HeaderComp: React.FC<PropsFromRedux> = (props) => {
   // const user = useSelector();
-  const { user } = props;
+  const { user, initUser } = props;
+
+  useEffect(() => {
+    if (!user.id) {
+      userApi.get<UserDto>().then((resp) => {
+        initUser(resp.data);
+      });
+    }
+  });
 
   function renderRight() {
     if (user.username) {
