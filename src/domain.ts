@@ -14,11 +14,15 @@
  * @see https://ncjamieson.com/dont-export-const-enums/
  * @see https://github.com/microsoft/fluentui/issues/7110
  * @see https://github.com/facebook/create-react-app/issues/5681
+ * @see https://github.com/wmonk/create-react-app-typescript/issues/400
+ * @see https://github.com/microsoft/TypeScript/issues/11202
+ * @see https://github.com/microsoft/TypeScript/issues/10879#issuecomment-248077719
+ * @see https://babeljs.io/docs/en/babel-plugin-transform-typescript#caveats
  */
 
 /* eslint-disable */
 
-// Generated using typescript-generator version 2.9.456 on 2020-04-24 15:34:45.
+// Generated using typescript-generator version 2.9.456 on 2020-04-28 19:44:38.
 
 export interface User extends BaseEntity {
   username: string;
@@ -60,6 +64,8 @@ export interface UserContest {
 export interface Problem extends BaseEntity {
   title: string;
   description: string;
+  html: string;
+  style: string;
   renderTree: string;
   stars: number;
   difficulty: ProblemDifficulty;
@@ -68,8 +74,6 @@ export interface Problem extends BaseEntity {
   access: ProblemAccessType;
   tags: Tag[];
   submissions: Submission[];
-  qcss: string;
-  qhtml: string;
 }
 
 export interface Contest extends BaseEntity {
@@ -99,13 +103,14 @@ export interface Notification extends BaseEntity {
 }
 
 export interface Submission extends BaseEntity {
+  html: string;
+  style: string;
   status: SubmissionStatus;
   score: number;
+  renderTree: string;
   logs: string;
   screenshot: string;
   submiter: User;
-  ahtml: string;
-  acss: string;
 }
 
 export interface Tag extends BaseEntity {
@@ -126,15 +131,17 @@ export interface UserDto extends Serializable {
 
 export interface SubmissionDto extends Serializable {
   id: number;
+  html: string;
+  style: string;
   status: SubmissionStatus;
   score: number;
   logs: string;
   screenshot: string;
+  renderTree: string;
   problem: ProblemDto;
+  submiter: UserDto;
   createdAt: Date;
   updatedAt: Date;
-  ahtml: string;
-  acss: string;
 }
 
 export interface UserContestDto extends Serializable {
@@ -173,6 +180,8 @@ export interface ProblemDto extends Serializable {
   id: number;
   title: string;
   description: string;
+  html: string;
+  style: string;
   renderTree: string;
   stars: number;
   status: ProblemStatusType;
@@ -183,8 +192,6 @@ export interface ProblemDto extends Serializable {
   tags: TagDto[];
   createdAt: Date;
   updatedAt: Date;
-  qcss: string;
-  qhtml: string;
 }
 
 export interface AuthLogDto extends Serializable {
