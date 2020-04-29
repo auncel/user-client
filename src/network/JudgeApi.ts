@@ -23,11 +23,17 @@ export interface IJudgeSubmission {
   style: string;
 }
 
+
+export interface IDiffResult {
+  score: number;
+  logs: any[];
+}
+
 export default class JudgeApi extends HttpRequest {
   baseURL = HostMap.JudgeCenter;
 
   @Post()
-  submit(data: IJudgeSubmission, config?: AxiosRequestConfig): Promise<IReponseResult<ProblemDto[]>> {
-    return {} as Promise<IReponseResult<ProblemDto[]>>;
+  submit(data: IJudgeSubmission, config?: AxiosRequestConfig): Promise<IReponseResult<IDiffResult>> {
+    return {} as Promise<IReponseResult<IDiffResult>>;
   }
 }

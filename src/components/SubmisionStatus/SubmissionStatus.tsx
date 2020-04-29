@@ -11,7 +11,7 @@
  *-------------------------------------------------------------------------- */
 import React from 'react';
 import styles from './styles.module.scss';
-import { SubmissionStatus as SubmissionStatusEnum } from '../../enum';
+import { SubmissionStatus as SubmissionStatusEnum } from '../../domain';
 
 
 interface ISubmissionStatusProps {

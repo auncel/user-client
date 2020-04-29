@@ -9,4 +9,4 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-export { ProblemDetail } from './ProblemDetail';
+export { default as ProblemDetail } from './ProblemDetail';

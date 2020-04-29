@@ -16,7 +16,7 @@ import { IReponseResult } from './ResponseResult';
 
 export default class HttpRequest {
   client = axios.create({
-    timeout: 3000,
+    timeout: 1000 * 60,
   });
 
   baseURL = HostMap.Default;
