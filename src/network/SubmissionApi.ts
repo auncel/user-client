@@ -24,4 +24,9 @@ export default class SubmissionApi extends HttpRequest {
   getByUser(config: AxiosRequestConfig): Promise<IReponseResult<SubmissionDto[]>> {
     return {} as Promise<IReponseResult<SubmissionDto[]>>;
   }
+
+  @Get()
+  getHeatMap(config: AxiosRequestConfig): Promise<IReponseResult<Record<string, number>>> {
+    return {} as Promise<IReponseResult<Record<string, number>>>;
+  }
 }

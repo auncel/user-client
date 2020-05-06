@@ -16,32 +16,39 @@ import React, { useEffect } from 'react';
 import CalHeatMap from 'cal-heatmap';
 import 'cal-heatmap/cal-heatmap.css';
 import dayjs from 'dayjs';
+import { message } from 'antd';
 import { Card } from '../../../components/Card';
 import styles from './submission-card.module.scss';
+import SubmissionApi from '../../../network/SubmissionApi';
 
-const SubmissionCard = () => {
+export interface ISubmissionCardProps {
+  userId: number;
+}
+
+const submissionApi = new SubmissionApi();
+
+const SubmissionCard: React.FC<ISubmissionCardProps> = (props) => {
+  const { userId } = props;
   useEffect(() => {
     const cal: CalHeatMap.CalHeatMap = new CalHeatMap();
-    const today = dayjs();
-    const lastYear = today.subtract(1, 'year');
-
-    const mockData = Array(100)
-      .fill(1)
-      .reduce((preV): any => {
-        (preV as any)[+(today.subtract(Math.random() * 364 | 0, 'day').toDate()) / 1000 | 0] = 2;
-        return preV;
-      }, {} as any);
+    // https://github.com/wa0x6e/cal-heatmap/issues/209
+    // https://github.com/wa0x6e/cal-heatmap/blob/2b9015369471a80303a779b6e8f2521102ca218c/index.html#L3873-L3882
     cal.init({
       itemSelector: '#cal-heatmap',
       domain: 'year',
       subDomain: 'day',
-      minDate: lastYear.toDate(),
-      maxDate: today.toDate(),
+      start: new Date(new Date().getFullYear(), 0, 1),
       displayLegend: true,
       range: 1,
       rowLimit: 7,
-      data: mockData,
     });
+    submissionApi.getHeatMap({ params: { userId } })
+      .then((respData) => {
+        cal.update(respData.data);
+      })
+      .catch((err) => {
+        message.error(err.toString());
+      });
   }, []);
   return (
     <Card title="近一年的提交情况">

@@ -73,7 +73,7 @@ export const ProfileComp: React.FC<IProfileProps & IAuthProps> = (props) => {
         <AcceptanceRateCard data={mockARData} />
       </Col>
       <Col span={16}>
-        <SubmissionCard />
+        <SubmissionCard userId={user.id!} />
         <ContestCard data={contests} />
         <SubmissionList data={submisison} />
       </Col>
