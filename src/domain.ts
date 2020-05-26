@@ -22,14 +22,14 @@
 
 /* eslint-disable */
 
-// Generated using typescript-generator version 2.9.456 on 2020-04-28 19:44:38.
+// Generated using typescript-generator version 2.9.456 on 2020-05-26 14:01:37.
 
 export interface User extends BaseEntity {
   username: string;
   realname: string;
   avatar: string;
   slogan: string;
-  role: number;
+  role: UserRoleType;
   status: string;
   registerIp: string;
   school: string;
@@ -110,6 +110,7 @@ export interface Submission extends BaseEntity {
   renderTree: string;
   logs: string;
   screenshot: string;
+  exeTime: number;
   submiter: User;
 }
 
@@ -123,10 +124,12 @@ export interface UserDto extends Serializable {
   realname: string;
   avatar: string;
   status: string;
-  role: number;
+  role: UserRoleType;
   registerIp: string;
   slogan: string;
   school: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface SubmissionDto extends Serializable {
@@ -138,6 +141,7 @@ export interface SubmissionDto extends Serializable {
   logs: string;
   screenshot: string;
   renderTree: string;
+  exeTime: number;
   problem: ProblemDto;
   submiter: UserDto;
   createdAt: Date;
@@ -157,8 +161,16 @@ export interface UserRequestDto extends Serializable {
   id: number;
   username: string;
   realname: string;
+  avatar: string;
+  status: string;
+  role: UserRoleType;
+  registerIp: string;
+  slogan: string;
+  school: string;
   email: string;
   password: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ContestDto extends Serializable {
@@ -172,6 +184,7 @@ export interface ContestDto extends Serializable {
   access: ContestAccessType;
   invitaionCode: string;
   maker: UserDto;
+  problems: ProblemDto[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -189,6 +202,7 @@ export interface ProblemDto extends Serializable {
   acceptance: number;
   submission: number;
   access: ProblemAccessType;
+  maker: UserDto;
   tags: TagDto[];
   createdAt: Date;
   updatedAt: Date;
@@ -227,6 +241,12 @@ export interface TagDto {
   value: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export enum UserRoleType {
+  ORDINARY = "ORDINARY",
+  ADMIN = "ADMIN",
+  SUPER_USER = "SUPER_USER",
 }
 
 export enum UserContestStatus {
