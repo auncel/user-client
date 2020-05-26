@@ -23,4 +23,9 @@ export default class ProblemApi extends HttpRequest {
   getByContest(config: AxiosRequestConfig): Promise<IReponseResult<ProblemDto[]>> {
     return {} as Promise<IReponseResult<ProblemDto[]>>;
   }
+
+  @Get()
+  getById(config: AxiosRequestConfig): Promise<IReponseResult<ProblemDto>> {
+    return {} as Promise<IReponseResult<ProblemDto>>;
+  }
 }

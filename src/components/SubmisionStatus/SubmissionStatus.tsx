@@ -24,10 +24,12 @@ export const SubmissionStatus = (props: ISubmissionStatusProps) => {
     case SubmissionStatusEnum.ACCEPT: {
       return <span className={styles.accept}>Accept</span>;
     }
+    case SubmissionStatusEnum.SYNTAX_ERROR:
+      return <span className={styles.wrongAnwser}>Syntax Error</span>;
     case SubmissionStatusEnum.WRONG_ANWSER:
-      return <span className={styles.wrongAnwser}>Wrong Anwser</span>;
     default:
-      return <span>Error</span>;
+      return <span className={styles.wrongAnwser}>Wrong Anwser</span>;
+    // return <span className={styles.wrongAnwser}>Error</span>;
   }
 };
 

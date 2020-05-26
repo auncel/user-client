@@ -37,9 +37,9 @@ const PublicInfoSetting: React.FC<IPublicInfoSettingProps & PropsFromRedux> = (p
   } = user ?? {};
   return (
     <Card title="个人信息" plain className={styles.publicInfoSetting}>
-      <ProfileField userId={id!} title="姓名" field="realname" value={realname!} />
-      <ProfileField userId={id!} title="签名" field="slogan" value={slogan!} />
-      <ProfileField userId={id!} title="学校" field="school" value={school!} />
+      <ProfileField type="profile" userId={id!} title="姓名" field="realname" value={realname!} />
+      <ProfileField type="profile" userId={id!} title="签名" field="slogan" value={slogan!} />
+      <ProfileField type="profile" userId={id!} title="学校" field="school" value={school!} />
     </Card>
   );
 };

@@ -51,7 +51,7 @@ const LoginComp: React.FC<PropsFromRedux & RouteComponentProps> = (props) => {
       window.sessionStorage.setItem('isLogin', String(respData.data.id));
     } catch (err) {
       console.error(err);
-      message.error(err.message);
+      message.error(err.toString());
     }
   }, []);
 
@@ -94,13 +94,13 @@ const LoginComp: React.FC<PropsFromRedux & RouteComponentProps> = (props) => {
         {/* <Link to="/forget-password" className={styles.acLoginText}>忘记秘密</Link> */}
         <Link to="/register" className={styles.acLoginText}>注册</Link>
       </Row>
-
+      {/*
       <div className={styles.acLoginGroup}>
         <Row justify="center" className={styles.acLoginText}>第三方登录</Row>
         <Row justify="center">
           <Image src={githubIcon} width={30} />
         </Row>
-      </div>
+      </div> */}
     </div>
   );
 };

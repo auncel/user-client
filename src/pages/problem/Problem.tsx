@@ -21,14 +21,6 @@ interface IProblemProps {
   contestId?: number;
 }
 
-const mockData = Array(29).fill({
-  id: 1,
-  title: '盒子模型',
-  status: 'Accepted',
-  acceptance: 90,
-  difficulty: ProblemDifficulty.Easy,
-});
-
 const problmeApi = new ProblemApi();
 
 export const Problem: React.FC<IProblemProps> = (props) => {

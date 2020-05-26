@@ -127,13 +127,13 @@ export const RegisterComp: React.FC<PropsFromRedux & RouteComponentProps> = (pro
         {/* <Link to="/forget-password" className={styles.acRegisterText}>忘记秘密</Link> */}
         <Link to="/login" className={styles.acRegisterText}>登录</Link>
       </Row>
-
+      {/*
       <div className={styles.acRegisterGroup}>
         <Row justify="center" className={styles.acRegisterText}>第三方登录</Row>
         <Row justify="center">
           <Image src={githubIcon} width={30} />
         </Row>
-      </div>
+      </div> */}
     </div>
   );
 };

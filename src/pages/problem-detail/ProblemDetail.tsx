@@ -73,7 +73,7 @@ export const ProblemDetail: React.FC<IProblemDetailProps & PropsWithRedux> = (pr
   useEffect(() => {
     async function fetchProblemDetail(): Promise<void> {
       try {
-        const respData = await problemApi.get<ProblemDto>({
+        const respData = await problemApi.getById({
           params: { id: problemId },
         });
         setProblem(respData.data);

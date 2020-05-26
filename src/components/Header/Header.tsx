@@ -13,7 +13,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, connect, ConnectedProps } from 'react-redux';
-import { Popover } from 'antd';
+import { Popover, message } from 'antd';
 import styles from './header.module.scss';
 import { Image } from '../Image';
 import haderConfig from '../../config/header';
@@ -43,7 +43,7 @@ const HeaderComp: React.FC<PropsFromRedux> = (props) => {
     if (!user.id) {
       userApi.get<UserDto>().then((resp) => {
         initUser(resp.data);
-      });
+      }).catch((err) => message.error(err.toString()));
     }
   });
 

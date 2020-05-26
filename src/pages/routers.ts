@@ -13,6 +13,7 @@ import { Setting } from './setting';
 import { ProblemDetail } from './problem-detail';
 import { Contest } from './contest';
 import { Problem } from './problem';
+import { ContestDetail } from './contest-detail';
 
 // const Login = lazy(() => import('./login/Login'));
 // const Register = lazy(() => import('./register/Register'));
@@ -48,7 +49,7 @@ export default [
     layout: 'base',
   },
   {
-    title: '问题',
+    title: '问题详情',
     path: '/problems/:id',
     components: ProblemDetail,
     layout: 'paved',
@@ -57,6 +58,12 @@ export default [
     title: '问题',
     path: '/problems',
     components: Problem,
+    layout: 'base',
+  },
+  {
+    title: '竞赛详情',
+    path: '/contests/:id',
+    components: ContestDetail,
     layout: 'base',
   },
   {

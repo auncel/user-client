@@ -21,7 +21,9 @@ export const Time = (props: ITimeProps) => {
   const { date } = props;
 
   function getPassDate(interval: number): string {
-    if (interval < 60) {
+    if (interval < 0) {
+      return '1秒前';
+    } if (interval < 60) {
       return `${interval}秒前`;
     } if (interval < 3600) {
       return `${interval / 60 | 0}分钟前`;

@@ -14,7 +14,7 @@ import { AxiosRequestConfig } from 'axios';
 import HttpRequest from './HttpRequest';
 import HostMap from './hostMap';
 import { IReponseResult } from './ResponseResult';
-import { UserContestDto } from '../domain';
+import { UserContestDto, ContestDto } from '../domain';
 import { Get } from './decorator';
 
 export default class ContestApi extends HttpRequest {
@@ -23,5 +23,11 @@ export default class ContestApi extends HttpRequest {
   @Get()
   getByUser(config: AxiosRequestConfig): Promise<IReponseResult<UserContestDto[]>> {
     return {} as Promise<IReponseResult<UserContestDto[]>>;
+  }
+
+
+  @Get()
+  getById(config: AxiosRequestConfig): Promise<IReponseResult<ContestDto>> {
+    return {} as Promise<IReponseResult<ContestDto>>;
   }
 }

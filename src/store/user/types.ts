@@ -9,13 +9,15 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
+import { UserRoleType } from '../../domain';
+
 export interface IUserState {
   id?: number;
   username?: string;
   realname?: string;
   avatar?: string;
   slogan?: string;
-  role?: number;
+  role?: UserRoleType;
   status?: string;
   registerTime?: Date;
   registerIp?: string;
